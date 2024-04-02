@@ -15,7 +15,7 @@ class Impressora(ABC):
         self._capacidade_toner = None
         self._vida_util_fusor = None
         self._vida_util_rolo_transferencia = None
-        self._vida_util_bandeja_um = None
+        self._vida_util_rolo_bandeja_um = None
         self._vida_util_rolo_retrocesso_bandeja_um = None
         self._vida_util_bandeja_multifuncional = None
         self._vida_util_rolo_bandeja_multifuncional = None

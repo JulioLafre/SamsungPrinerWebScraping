@@ -30,6 +30,7 @@ try:
             # Tenta identificar a Impressora4070
             navegador.find_element(By.XPATH, "//span[text()='SL-M4070FR']")
             impressora = Impressora4070(navegador)
+            impressora.montar_impressora()
         except NoSuchElementException:
             pass  # Se não encontrar, prossegue para a próxima tentativa
 
@@ -38,6 +39,7 @@ try:
             if not impressora:
                 navegador.find_element(By.NAME, "ruifw_StatusFrm")
                 impressora = Impressora4080(navegador)
+                impressora.montar_impressora()
         except NoSuchElementException:
             pass
 
@@ -46,6 +48,7 @@ try:
             if not impressora:
                 navegador.find_element(By.XPATH, "//span[text()='SL-M4020ND']")
                 impressora = Impressora4020(navegador)
+                impressora.montar_impressora()
         except NoSuchElementException:
             pass
 

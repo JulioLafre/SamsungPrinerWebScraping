@@ -67,13 +67,13 @@ class Impressora4070(Impressora):
     def _extrair_vida_util_rolo_bandeja_multifuncional(self):
         return self._navegador.find_element(By.XPATH, "//label[contains(text(),'Bandeja multifuncional Vida útil do rolo de retrocesso:')]/following-sibling::div[1]").text
 
-    def montar_impressora():
+    def montar_impressora(self):
         _ = self.modelo_impressora
         _ = self.host_impressora
         _ = self.numero_serie_impressora
-        abrir_aba_informacoes()
+        self.abrir_aba_informacoes()
         sleep(3)
-        abrir_aba_suprimentos()
+        self.abrir_aba_suprimentos()
         sleep(5)
         _ = self.vida_restante_toner
         _ = self.total_impressoes_toner
@@ -86,7 +86,7 @@ class Impressora4070(Impressora):
         _ = self.vida_util_rolo_retrocesso_bandeja_um
         _ = self.vida_util_bandeja_multifuncional
         _ = self.vida_util_rolo_bandeja_multifuncional
-        abrir_aba_contadores_uso()
+        self.abrir_aba_contadores_uso()
         sleep(5)
         _ = self.total_impressoes_impressora
 
@@ -158,54 +158,77 @@ class Impressora4080(Impressora):
 
     def _extrair_modelo_toner(self):
         self._navegador.switch_to.frame('ruifw_MainFrm')
-        texto_modelo_toner = self.navegador.find_element(By.ID, "remainCont").text
+        texto_modelo_toner = self._navegador.find_element(By.ID, "remainCont").text
         self._navegador.switch_to.default_content()
         return texto_modelo_toner
 
     def _extrair_numero_serie_toner(self):
         self._navegador.switch_to.frame('ruifw_MainFrm')
-        texto_numero_serie_toner = self.navegador.find_element(By.ID, "cartCont").text
+        texto_numero_serie_toner = self._navegador.find_element(By.ID, "cartCont").text
         self._navegador.switch_to.default_content()
         return texto_numero_serie_toner
 
     def _extrair_capacidade_toner(self):
         self._navegador.switch_to.frame('ruifw_MainFrm')
-        texto_capacidade_toner = self.navegador.find_element(By.ID, "capacityCont").text
+        texto_capacidade_toner = self._navegador.find_element(By.ID, "capacityCont").text
         self._navegador.switch_to.default_content()
         return texto_capacidade_toner
 
     def _extrair_vida_util_fusor(self):
         self._navegador.switch_to.frame('ruifw_MainFrm')
-        texto_vida_util_fusor = self.navegador.find_element(By.ID, "fuserAssemblyRemaining").text
+        texto_vida_util_fusor = self._navegador.find_element(By.ID, "fuserAssemblyRemaining").text
         self._navegador.switch_to.default_content()
         return texto_vida_util_fusor
 
     def _extrair_vida_util_rolo_transferencia(self):
         self._navegador.switch_to.frame('ruifw_MainFrm')
-        texto_vida_util_rolo_tranferencia = self.navegador.find_element(By.ID, "t2RollerLife").text
+        texto_vida_util_rolo_tranferencia = self._navegador.find_element(By.ID, "t2RollerLife").text
         self._navegador.switch_to.default_content()
         return texto_vida_util_rolo_tranferencia
 
     def _extrair_vida_util_rolo_bandeja_um(self):
         self._navegador.switch_to.frame('ruifw_MainFrm')
-        texto_vida_util_rolo_bandeja_um = self.navegador.find_element(By.ID, "tray1RollerLife").text
+        texto_vida_util_rolo_bandeja_um = self._navegador.find_element(By.ID, "tray1RollerLife").text
         self._navegador.switch_to.default_content()
         return texto_vida_util_rolo_bandeja_um
 
     def _extrair_vida_util_rolo_retrocesso_bandeja_um(self):
         self._navegador.switch_to.frame('ruifw_MainFrm')
-        texto_vida_util_rolo_retrocesso_bandeja_um = self.navegador.find_element(By.ID, "tray1RtdRollerLife").text
+        texto_vida_util_rolo_retrocesso_bandeja_um = self._navegador.find_element(By.ID, "tray1RtdRollerLife").text
         self._navegador.switch_to.default_content()
         return texto_vida_util_rolo_retrocesso_bandeja_um
 
     def _extrair_vida_util_bandeja_multifuncional(self):
         self._navegador.switch_to.frame('ruifw_MainFrm')
-        texto_vida_util_badeja_multifuncional = self.navegador.find_element(By.ID, "mpTrayRollerLife").text
+        texto_vida_util_badeja_multifuncional = self._navegador.find_element(By.ID, "mpTrayRollerLife").text
         self._navegador.switch_to.default_content()
-        return texto_vida_util_badeja_multifuncional #Confirmar
-
+        return texto_vida_util_badeja_multifuncional
+        
     def _extrair_vida_util_rolo_bandeja_multifuncional(self):
         self._navegador.switch_to.frame('ruifw_MainFrm')
-        texto_vida_util_rolo_bandeja_multifuncional = self.navegador.find_element(By.ID, "aDFRollerLife").text
+        texto_vida_util_rolo_bandeja_multifuncional = self._navegador.find_element(By.ID, "aDFRollerLife").text
         self._navegador.switch_to.default_content()
-        return texto_vida_util_rolo_bandeja_multifuncional #Confirmar
+        return texto_vida_util_rolo_bandeja_multifuncional
+
+    def montar_impressora(self):
+        _ = self.modelo_impressora
+        _ = self.host_impressora
+        _ = self.numero_serie_impressora
+        self.abrir_aba_informacoes()
+        sleep(3)
+        self.abrir_aba_suprimentos()
+        sleep(5)
+        _ = self.vida_restante_toner
+        _ = self.total_impressoes_toner
+        _ = self.modelo_toner
+        _ = self.numero_serie_toner
+        _ = self.capacidade_toner
+        _ = self.vida_util_fusor
+        _ = self.vida_util_rolo_transferencia
+        _ = self.vida_util_rolo_bandeja_um
+        _ = self.vida_util_rolo_retrocesso_bandeja_um
+        _ = self.vida_util_bandeja_multifuncional
+        _ = self.vida_util_rolo_bandeja_multifuncional
+        self.abrir_aba_contadores_uso()
+        sleep(5)
+        _ = self.total_impressoes_impressora

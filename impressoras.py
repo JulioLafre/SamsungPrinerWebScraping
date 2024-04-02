@@ -67,6 +67,29 @@ class Impressora4070(Impressora):
     def _extrair_vida_util_rolo_bandeja_multifuncional(self):
         return self._navegador.find_element(By.XPATH, "//label[contains(text(),'Bandeja multifuncional Vida útil do rolo de retrocesso:')]/following-sibling::div[1]").text
 
+    def montar_impressora():
+        _ = self.modelo_impressora
+        _ = self.host_impressora
+        _ = self.numero_serie_impressora
+        abrir_aba_informacoes()
+        sleep(3)
+        abrir_aba_suprimentos()
+        sleep(5)
+        _ = self.vida_restante_toner
+        _ = self.total_impressoes_toner
+        _ = self.modelo_toner
+        _ = self.numero_serie_toner
+        _ = self.capacidade_toner
+        _ = self.vida_util_fusor
+        _ = self.vida_util_rolo_transferencia
+        _ = self.vida_util_rolo_bandeja_um
+        _ = self.vida_util_rolo_retrocesso_bandeja_um
+        _ = self.vida_util_bandeja_multifuncional
+        _ = self.vida_util_rolo_bandeja_multifuncional
+        abrir_aba_contadores_uso()
+        sleep(5)
+        _ = self.total_impressoes_impressora
+
 
 #Como a pagina da 4070 e da 4020 são iguais, não a problema de herdar os mesmos metodos, caso venha a mudar algo na pagina, implemente as mudanças na classe abaixo
 class Impressora4020(Impressora4070):

@@ -4,10 +4,10 @@ from selenium import webdriver
 class Impressora(ABC):
     def __init__(self, navegador: webdriver):
         self._navegador = navegador
-        self._modelo_impressora = None
-        self._host_impressora= None
-        self._numero_serie_impressora = None
-        self._total_impressoes_impressora = None
+        self._modelo = None
+        self._host= None
+        self._numero_serie = None
+        self._total_impressoes = None
         self._vida_restante_toner = None
         self._total_impressoes_toner = None
         self._modelo_toner = None
@@ -22,43 +22,43 @@ class Impressora(ABC):
 
     #Metodos da Impressora
     @property
-    def modelo_impressora(self):
-        if self._modelo_impressora is None:
-            self._modelo_impressora = self._extrair_modelo_impressora()
-        return self._modelo_impressora
+    def modelo(self):
+        if self._modelo is None:
+            self._modelo = self._extrair_modelo()
+        return self._modelo
 
     @abstractmethod
-    def _extrair_modelo_impressora(self):
+    def _extrair_modelo(self):
         pass
         
     @property
-    def total_impressoes_impressora(self):
-        if self._total_impressoes_impressora is None:
-            self._total_impressoes_impressora = self._extrair_total_impressoes_impressora()
-        return self._total_impressoes_impressora
+    def total_impressoes(self):
+        if self._total_impressoes is None:
+            self._total_impressoes = self._extrair_total_impressoes()
+        return self._total_impressoes
     
     @abstractmethod
-    def _extrair_total_impressoes_impressora(self):
+    def _extrair_total_impressoes(self):
         pass
     
     @property
-    def host_impressora(self):
-        if self._host_impressora is None:
-            self._host_impressora = self._extrair_host_impressora()
-        return self._host_impressora
+    def host(self):
+        if self._host is None:
+            self._host = self._extrair_host()
+        return self._host
 
     @abstractmethod
-    def _extrair_host_impressora(self):
+    def _extrair_host(self):
         pass
 
     @property
-    def numero_serie_impressora(self):
-        if self._numero_serie_impressora is None:
-            self._numero_serie_impressora = self._extrair_numero_serie_impressora()
-        return self._numero_serie_impressora
+    def numero_serie(self):
+        if self._numero_serie is None:
+            self._numero_serie = self._extrair_numero_serie()
+        return self._numero_serie
     
     @abstractmethod
-    def _extrair_numero_serie_impressora(self):
+    def _extrair_numero_serie(self):
         pass
 
 

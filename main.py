@@ -4,10 +4,13 @@ from selenium.webdriver.common.by import By
 from selenium.common.exceptions import TimeoutException,NoSuchElementException
 from time import sleep
 from impressoras import Impressora4070, Impressora4080, Impressora4020
+from pdfconfig import criar_pdf_impressora
 import json
 
+diretorio_pdf = "pdfs/"
+
 options = Options()
-options.add_argument("--headless")
+#options.add_argument("--headless")
 options.add_argument('-width=1600')
 options.add_argument('-height=900')
 
@@ -53,20 +56,18 @@ try:
             pass
 
         if not impressora:
-            print("Modelo de impressora não reconhecido.")
+            raise NoSuchElementException("Não foi encontrado o modelo de Impressora Informado")
 
-        # Verificação e execução baseada no tipo de impressora
-        if isinstance(impressora, Impressora4070) or isinstance(impressora, Impressora4020):
-            # Código específico para Impressora4070 e 4020, já são da mesma Classe
-            print(impressora.modelo_impressora)
-            pass
+        criar_pdf_impressora(impressora, nome_arquivo=f"{diretorio_pdf}informacoes_impressora_{impressora.host}_{impressora.modelo}.pdf")
 
-        elif isinstance(impressora, Impressora4080):
-            # Código específico para Impressora4080
-            print(impressora.modelo_impressora)
-            pass
-
+    #Garante que a próxima pagina carrega não terá interferencia das anteriores
     navegador.delete_all_cookies()
+
+
+except TimeoutException as e:
+    print(f"Erro: {e}")
+    raise TimeoutException("A operação demorou muito para ser concluída e foi interrompida.")
+
 
 finally:
     navegador.quit()

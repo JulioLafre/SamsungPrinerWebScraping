@@ -22,16 +22,16 @@ class Impressora4070(Impressora):
 
 
     #Metodos Obrigatórios
-    def _extrair_modelo_impressora(self):
+    def _extrair_modelo(self):
         return self._navegador.find_element(By.XPATH, "//div[text()='Nome do modelo']/following-sibling::div[1]").text
 
-    def _extrair_host_impressora(self):
+    def _extrair_host(self):
         return self._navegador.find_element(By.XPATH, "//div[text()='Nome do host']/following-sibling::div[1]").text
 
-    def _extrair_numero_serie_impressora(self):
+    def _extrair_numero_serie(self):
         return self._navegador.find_element(By.XPATH, "//div[text()='Número de série']/following-sibling::div[1]").text
 
-    def _extrair_total_impressoes_impressora(self):
+    def _extrair_total_impressoes(self):
         return self._navegador.find_element(By.XPATH, "//div[contains(text(),'Total de impressões')]/ancestor::td/following-sibling::td[last()]//div").text
 
     def _extrair_vida_restante_toner(self):
@@ -67,10 +67,11 @@ class Impressora4070(Impressora):
     def _extrair_vida_util_rolo_bandeja_multifuncional(self):
         return self._navegador.find_element(By.XPATH, "//label[contains(text(),'Bandeja multifuncional Vida útil do rolo de retrocesso:')]/following-sibling::div[1]").text
 
+    #Metodo de extração de informalçoes
     def montar_impressora(self):
-        _ = self.modelo_impressora
-        _ = self.host_impressora
-        _ = self.numero_serie_impressora
+        _ = self.modelo
+        _ = self.host
+        _ = self.numero_serie
         self.abrir_aba_informacoes()
         sleep(3)
         self.abrir_aba_suprimentos()
@@ -88,7 +89,7 @@ class Impressora4070(Impressora):
         _ = self.vida_util_rolo_bandeja_multifuncional
         self.abrir_aba_contadores_uso()
         sleep(5)
-        _ = self.total_impressoes_impressora
+        _ = self.total_impressoes
 
 
 #Como a pagina da 4070 e da 4020 são iguais, não a problema de herdar os mesmos metodos, caso venha a mudar algo na pagina, implemente as mudanças na classe abaixo
@@ -116,29 +117,30 @@ class Impressora4080(Impressora):
     def abrir_aba_contadores_uso(self):
         self._navegador.switch_to.frame("ruifw_LeftFrm")
         botao_contadores_uso = self._navegador.find_element(By.XPATH, "//td[text()='Conts uso']")
+        botao_contadores_uso.click()
         self._navegador.switch_to.default_content()
 
 
     #Metodos Obrigatórios
-    def _extrair_modelo_impressora(self):
+    def _extrair_modelo(self):
         self._navegador.switch_to.frame('ruifw_MainFrm')
-        texto_modelo_impressora = self._navegador.find_element(By.XPATH, "//td[text()='Nome do modelo']/following-sibling::td[1]").text
+        texto_modelo = self._navegador.find_element(By.XPATH, "//td[text()='Nome do modelo']/following-sibling::td[1]").text
         self._navegador.switch_to.default_content()
-        return texto_modelo_impressora
+        return texto_modelo
 
-    def _extrair_host_impressora(self):
+    def _extrair_host(self):
         self._navegador.switch_to.frame('ruifw_MainFrm')
-        texto_host_impressora = self._navegador.find_element(By.XPATH, "//td[text()='Nome do Dispositivo']/following-sibling::td[1]").text
+        texto_host = self._navegador.find_element(By.XPATH, "//td[text()='Nome do Dispositivo']/following-sibling::td[1]").text
         self._navegador.switch_to.default_content()
-        return texto_host_impressora
+        return texto_host
 
-    def _extrair_numero_serie_impressora(self):
+    def _extrair_numero_serie(self):
         self._navegador.switch_to.frame('ruifw_MainFrm')
-        texto_numero_serie_impressora = self._navegador.find_element(By.XPATH, "//td[text()='Número de série']/following-sibling::td[1]").text
+        texto_numero_serie = self._navegador.find_element(By.XPATH, "//td[text()='Número de série']/following-sibling::td[1]").text
         self._navegador.switch_to.default_content()
-        return texto_numero_serie_impressora
+        return texto_numero_serie
 
-    def _extrair_total_impressoes_impressora(self):
+    def _extrair_total_impressoes(self):
         self._navegador.switch_to.frame('ruifw_MainFrm')
         texto_total_impressoes = self._navegador.find_element(By.XPATH,"//tr[@id='swstable_counterTotalList_expandTR_2']/td[last()]").text
         self._navegador.switch_to.default_content()
@@ -210,10 +212,11 @@ class Impressora4080(Impressora):
         self._navegador.switch_to.default_content()
         return texto_vida_util_rolo_bandeja_multifuncional
 
+    #Metodo de extração de informalçoes
     def montar_impressora(self):
-        _ = self.modelo_impressora
-        _ = self.host_impressora
-        _ = self.numero_serie_impressora
+        _ = self.modelo
+        _ = self.host
+        _ = self.numero_serie
         self.abrir_aba_informacoes()
         sleep(3)
         self.abrir_aba_suprimentos()
@@ -231,4 +234,4 @@ class Impressora4080(Impressora):
         _ = self.vida_util_rolo_bandeja_multifuncional
         self.abrir_aba_contadores_uso()
         sleep(5)
-        _ = self.total_impressoes_impressora
+        _ = self.total_impressoes

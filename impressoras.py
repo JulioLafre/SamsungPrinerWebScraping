@@ -1,5 +1,7 @@
 from baseimpressoras import Impressora
 from selenium.webdriver.common.by import By
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
 from time import sleep
 
 class Impressora4070(Impressora):
@@ -69,13 +71,17 @@ class Impressora4070(Impressora):
 
     #Metodo de extração de informalçoes
     def montar_impressora(self):
+        espera = WebDriverWait(self._navegador, 10)
         _ = self.modelo
         _ = self.host
         _ = self.numero_serie
         self.abrir_aba_informacoes()
-        sleep(3)
+        #sleep(5)
+        espera.until(EC.presence_of_element_located((By.XPATH, "//span[contains(text(),'Suprimentos')]/ancestor::a[1]")))
+        sleep(0.5)
         self.abrir_aba_suprimentos()
-        sleep(5)
+        #sleep(5)
+        espera.until(EC.presence_of_element_located((By.XPATH, "//label[contains(text(),'Restante:')]/following-sibling::div[1]")))
         _ = self.vida_restante_toner
         _ = self.total_impressoes_toner
         _ = self.modelo_toner
@@ -88,7 +94,8 @@ class Impressora4070(Impressora):
         _ = self.vida_util_bandeja_multifuncional
         _ = self.vida_util_rolo_bandeja_multifuncional
         self.abrir_aba_contadores_uso()
-        sleep(5)
+        espera.until(EC.presence_of_element_located((By.XPATH, "//div[contains(text(),'Total de impressões')]/ancestor::td/following-sibling::td[last()]//div")))
+        #sleep(5)
         _ = self.total_impressoes
 
 
@@ -160,7 +167,7 @@ class Impressora4080(Impressora):
 
     def _extrair_modelo_toner(self):
         self._navegador.switch_to.frame('ruifw_MainFrm')
-        texto_modelo_toner = self._navegador.find_element(By.ID, "remainCont").text
+        texto_modelo_toner = self._navegador.find_element(By.ID, "cartCont").text
         self._navegador.switch_to.default_content()
         return texto_modelo_toner
 
@@ -214,13 +221,23 @@ class Impressora4080(Impressora):
 
     #Metodo de extração de informalçoes
     def montar_impressora(self):
+        espera = WebDriverWait(self._navegador, 10)
         _ = self.modelo
         _ = self.host
         _ = self.numero_serie
+
+        #Verificador para a página de suprimentos
         self.abrir_aba_informacoes()
-        sleep(3)
+        self._navegador.switch_to.frame('ruifw_LeftFrm')
+        espera.until(EC.presence_of_element_located((By.XPATH, "//td[text()='Suprimentos']")))
+        self._navegador.switch_to.default_content()
         self.abrir_aba_suprimentos()
-        sleep(5)
+        
+        #Verificador para a página de extração de tonner
+        self._navegador.switch_to.frame('ruifw_MainFrm')
+        espera.until(EC.presence_of_element_located((By.ID, "remainCont")))
+        self._navegador.switch_to.default_content()
+
         _ = self.vida_restante_toner
         _ = self.total_impressoes_toner
         _ = self.modelo_toner
@@ -232,6 +249,10 @@ class Impressora4080(Impressora):
         _ = self.vida_util_rolo_retrocesso_bandeja_um
         _ = self.vida_util_bandeja_multifuncional
         _ = self.vida_util_rolo_bandeja_multifuncional
+
+        #Verificador para extração da informação de total de impressões
         self.abrir_aba_contadores_uso()
-        sleep(5)
+        self._navegador.switch_to.frame('ruifw_MainFrm')
+        espera.until(EC.presence_of_element_located((By.XPATH,"//tr[@id='swstable_counterTotalList_expandTR_2']/td[last()]")))
+        self._navegador.switch_to.default_content()
         _ = self.total_impressoes

@@ -10,7 +10,7 @@ import json
 diretorio_pdf = "pdfs/"
 
 options = Options()
-#options.add_argument("--headless")
+options.add_argument("--headless")
 options.add_argument('-width=1600')
 options.add_argument('-height=900')
 
@@ -23,11 +23,10 @@ with open('ipimpressoras.json', 'r') as arquivo_json:
 
 
 try:
-
     for ip in ips_impressoras["IP das Impressoras ELCMAR"]:
         impressora = None
         navegador.get(f"http://{ip}/sws/index.html")
-        sleep(5)
+        sleep(3)
 
         try:
             # Tenta identificar a Impressora4070

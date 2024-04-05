@@ -75,12 +75,14 @@ class Impressora4070(Impressora):
         _ = self.modelo
         _ = self.host
         _ = self.numero_serie
+        
+        #Verificador para a página de suprimentos
         self.abrir_aba_informacoes()
-        #sleep(5)
         espera.until(EC.presence_of_element_located((By.XPATH, "//span[contains(text(),'Suprimentos')]/ancestor::a[1]")))
         sleep(0.5)
         self.abrir_aba_suprimentos()
-        #sleep(5)
+
+        #Verificador para a página de extração de tonner
         espera.until(EC.presence_of_element_located((By.XPATH, "//label[contains(text(),'Restante:')]/following-sibling::div[1]")))
         _ = self.vida_restante_toner
         _ = self.total_impressoes_toner
@@ -93,9 +95,10 @@ class Impressora4070(Impressora):
         _ = self.vida_util_rolo_retrocesso_bandeja_um
         _ = self.vida_util_bandeja_multifuncional
         _ = self.vida_util_rolo_bandeja_multifuncional
+
+        #Verificador para extração da informação de total de impressões
         self.abrir_aba_contadores_uso()
         espera.until(EC.presence_of_element_located((By.XPATH, "//div[contains(text(),'Total de impressões')]/ancestor::td/following-sibling::td[last()]//div")))
-        #sleep(5)
         _ = self.total_impressoes
 
 
